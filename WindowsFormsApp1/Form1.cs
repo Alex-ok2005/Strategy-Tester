@@ -6,11 +6,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Collections.Concurrent;
-using System.Threading;
+//using System.Threading;
 
 namespace WindowsFormsApp1
 {
@@ -607,11 +607,12 @@ namespace WindowsFormsApp1
                         if (ProfitDecline < (MaxProfitTrade - MinProfitTrade)) { ProfitDecline = (MaxProfitTrade - MinProfitTrade); } // Если новое значение просадки больше сохраненного - обновим его
 
                         trades.Rows.Add(I.ToString(), kvp.Key.Date.ToString("dd.MM.yyyy"), kvp.Key.ToString("HH:mm:ss"), DirectionTrade, TradeObj.PriceStop.ToString(), NBarTrade.ToString(), Profit.ToString(), ProfitTrade.ToString(), TradeObj.UndefinedResult.ToString());
-                        chart1.Series[0].Points.AddXY(kvp.Key, ProfitTrade);
+                        chart1.Series[0].Points.AddXY(kvp.Key, ProfitTrade);  // Добавим на график медиану
                     }
                 }
 
                 // ----------------------------  Поиск новой сделки ---------------------------------
+                #region Search new trade
 
                 SearchEntranceObj.NewBar(kvp.Key, kvp.Value, out FlagTrade);  // Передаем новый бар объекту "Поиск входа в сделку"
                 if (FlagTrade)                                                // Если от объекта поступил сигнал на новую сделку
@@ -642,8 +643,10 @@ namespace WindowsFormsApp1
                 }
                 LastDateTime = kvp.Key;
             }
+            #endregion
 
             // -------------------------  Выводим на график количества сделок по часам и дням недели --------------------------------
+            #region Fill Chart3
 
             for (int i = 10; i < 24; i++)                            
             {
@@ -673,6 +676,7 @@ namespace WindowsFormsApp1
                 chart4.Series[2].Points.AddXY(i, NProfitTrades - NLossTrades);
             }
 
+            #endregion
             // ---------------------------------------------------------------------------------------------------------------------------
 
 
@@ -805,6 +809,7 @@ namespace WindowsFormsApp1
             chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Area;
             chart1.Series[1].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
             chart1.Series[2].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart1.ChartAreas[0].AxisX.LabelStyle.Format = "dd.MM.yy";
         }
 
         private void Button1_Click(object sender, EventArgs e)
