@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
+//using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text;
 //using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
-using System.Collections.Concurrent;
+//using System.Collections.Concurrent;
 //using System.Threading;
 
 namespace WindowsFormsApp1
@@ -454,18 +454,19 @@ namespace WindowsFormsApp1
             int TradeNDay = 0;                                                // Переменная для хранения номера дня текущей сделки
             int TradeNHour = 0;                                               // Переменная для хранения номера часа текущей сделки
 
-            SearchEntrance SearchEntranceObj = new SearchEntrance();          // Создаем объект для поиска сделки
-                                                                              // Считываем из формы параметры стратегии
-            SearchEntranceObj.PriceStep = (double)numericUpDown1.Value;
-            SearchEntranceObj.ModeMaxLoss = radioButton2.Checked;
-            SearchEntranceObj.Lot = (int)numericUpDown2.Value;
-            SearchEntranceObj.MaxLoss = (int)numericUpDown7.Value;
-            SearchEntranceObj.MaxLot = (int)numericUpDown2.Value;
+            SearchEntrance SearchEntranceObj = new SearchEntrance             // Создаем объект для поиска сделки
+            {                                                                 // Считываем из формы параметры стратегии
+                PriceStep = (double)numericUpDown1.Value,
+                ModeMaxLoss = radioButton2.Checked,
+                Lot = (int)numericUpDown2.Value,
+                MaxLoss = (int)numericUpDown7.Value,
+                MaxLot = (int)numericUpDown2.Value,
 
-            SearchEntranceObj.Recoil = (int)numericUpDown8.Value;
-            SearchEntranceObj.SL_TP = (double)numericUpDown5.Value;
-            SearchEntranceObj.FalseBar = (int)numericUpDown4.Value;
-            SearchEntranceObj.NB = (int)numericUpDown3.Value;                 // Задаем мин.количество баров в серии
+                Recoil = (int)numericUpDown8.Value,
+                SL_TP = (double)numericUpDown5.Value,
+                FalseBar = (int)numericUpDown4.Value,
+                NB = (int)numericUpDown3.Value                                // Задаем мин.количество баров в серии
+            };          
 
             Trade TradeObj = new Trade();
 
